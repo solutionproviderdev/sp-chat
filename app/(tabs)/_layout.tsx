@@ -1,37 +1,80 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import React from "react";
+import { Tabs } from "expo-router";
+import { View, Text } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
-  );
+interface TabsIconProps {
+  name: string;
+  color: string;
+  icon: string;
+  focused: boolean;
 }
+
+const TabsIcon: React.FC<TabsIconProps> = ({ name, color, icon, focused }) => {
+  return (
+    <View className="items-center justify-center gap-2">
+      <Icon name={icon} size={24} color={color} />
+      <Text
+        className={`${focused ? "font-bold" : "font-normal"} text-xs`}
+        style={{
+          color: color,
+        }}
+      >
+        {name}
+      </Text>
+    </View>
+  );
+};
+
+const HomeLayout = () => {
+  return (
+    <>
+      <Tabs
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarActiveTintColor: "#000",
+          tabBarInactiveTintColor: "#888",
+          tabBarStyle: {
+            backgroundColor: "#fff",
+            borderTopWidth: 1,
+            borderTopColor: "#ddd",
+            height: 84,
+          },
+        }}
+      >
+        <Tabs.Screen
+          name="leads"
+          options={{
+            title: "Leads",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabsIcon
+                name="Leads"
+                color={color}
+                focused={focused}
+                icon="account-group"
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="internal-chat"
+          options={{
+            title: "Internal Chat",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabsIcon
+                name="Chat"
+                color={color}
+                focused={focused}
+                icon="chat"
+              />
+            ),
+          }}
+        />
+      </Tabs>
+    </>
+  );
+};
+
+export default HomeLayout;
