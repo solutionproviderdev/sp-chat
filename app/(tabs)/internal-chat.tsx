@@ -1,3 +1,112 @@
+// import React, { useState } from "react";
+// import { ScrollView, StatusBar, View } from "react-native";
+// import Header from "@components/home/Header";
+// import SearchBar from "@components/home/SearchBar";
+// import FilterSection from "@components/home/FilterSection";
+// import ConversationItem from "@components/home/ConversationItem";
+// import { SafeAreaView } from "react-native-safe-area-context";
+// import { useRouter } from "expo-router";
+
+// const InternalChat = () => {
+//   const [searchQuery, setSearchQuery] = useState("");
+//   const [filter, setFilter] = useState("all");
+//   const router = useRouter();
+//   const spchat = "spchat";
+//   const conversations = [
+//     {
+//       id: 1,
+//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
+//       name: "salman fursi",
+//       message: "spchat bolsi!",
+//       time: "12:34",
+//     },
+//     {
+//       id: 2,
+//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
+//       name: "najmul bhai",
+//       message: "spchat bolsi!",
+//       time: "12:34",
+//     },
+//     {
+//       id: 3,
+//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
+//       name: "ritu",
+//       message: "spchat bolsi!",
+//       time: "12:34",
+//     },
+//     {
+//       id: 4,
+//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
+//       name: "wony",
+//       message: "spchat bolsi!",
+//       time: "12:34",
+//     },
+//     {
+//       id: 5,
+//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
+//       name: "ashik bhai ",
+//       message: "spchat bolsi!",
+//       time: "12:34",
+//     },
+//     {
+//       id: 6,
+//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
+//       name: "emon",
+//       message: "spchat bolsi!",
+//       time: "12:34",
+//     },
+//     {
+//       id: 7,
+//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
+//       name: "khalid mitul",
+//       message: "spchat bolsi!",
+//       time: "12:34",
+//     },
+//     {
+//       id: 8,
+//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
+//       name: "sabbir",
+//       message: "spchat bolsi!",
+//       time: "12:34",
+//     },
+//     {
+//       id: 9,
+//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
+//       name: "tanvir",
+//       message: "spchat bolsi!",
+//       time: "12:34",
+//     },
+//   ];
+
+//   return (
+//     <SafeAreaView className="h-full w-full">
+//       <Header title="SP Chat" className="mt-10" />
+//       <View className="w-full px-4">
+//         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+//         <FilterSection filter={filter} setFilter={setFilter} />
+//       </View>
+//       <ScrollView className="mt-2">
+//         {conversations.map((conversation) => (
+//           <ConversationItem
+//           id={conversation.id}
+//             key={conversation.id}
+//             tab={spchat}
+//             image={conversation.image}
+//             name={conversation.name}
+//             message={conversation.message}
+//             time={conversation.time}
+//             onPress={() => router.push(`/(spchat)/${conversation.id}`)} // Ensure full path is used
+//           />
+//         ))}
+//       </ScrollView>
+//       <StatusBar backgroundColor={"#fff"} />
+//     </SafeAreaView>
+//   );
+// };
+
+// export default InternalChat;
+
+
 import React, { useState } from "react";
 import { ScrollView, StatusBar, View } from "react-native";
 import Header from "@components/home/Header";
@@ -5,28 +114,86 @@ import SearchBar from "@components/home/SearchBar";
 import FilterSection from "@components/home/FilterSection";
 import ConversationItem from "@components/home/ConversationItem";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 
 const InternalChat = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("all");
-
+  const router = useRouter();
+  const spchat = "spchat";
   const conversations = [
-    { name: "John Doe", message: "Hello!", time: "12:34" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35" },
-    // Add more dummy data here
+    {
+      id: 1,
+      image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
+      name: "salman fursi",
+      message: "spchat bolsi!",
+      time: "12:34",
+    },
+    {
+      id: 2,
+      image: "https://i.ibb.co/Yy1QsQR/Screenshot-4.png",
+      name: "ali rahman",
+      message: "hello there!",
+      time: "12:35",
+    },
+    {
+      id: 3,
+      image: "https://i.ibb.co/zXVyV0Z/Screenshot-5.png",
+      name: "ayesha khan",
+      message: "good morning!",
+      time: "12:36",
+    },
+    {
+      id: 4,
+      image: "https://i.ibb.co/3kXgVX2/Screenshot-6.png",
+      name: "omar sharif",
+      message: "what's up?",
+      time: "12:37",
+    },
+    {
+      id: 5,
+      image: "https://i.ibb.co/vkmPn4z/Screenshot-7.png",
+      name: "nadia islam",
+      message: "see you soon.",
+      time: "12:38",
+    },
+    {
+      id: 6,
+      image: "https://i.ibb.co/5vjMTnQ/Screenshot-8.png",
+      name: "reza chowdhury",
+      message: "how are you?",
+      time: "12:39",
+    },
+    {
+      id: 7,
+      image: "https://i.ibb.co/m9JbBPh/Screenshot-9.png",
+      name: "farah hossain",
+      message: "let's meet.",
+      time: "12:40",
+    },
+    {
+      id: 8,
+      image: "https://i.ibb.co/f4PHPSj/Screenshot-10.png",
+      name: "kamal uddin",
+      message: "great job!",
+      time: "12:41",
+    },
+    {
+      id: 9,
+      image: "https://i.ibb.co/4m4qg5k/Screenshot-11.png",
+      name: "shamim hasan",
+      message: "nice to see you.",
+      time: "12:42",
+    },
+    {
+      id: 10,
+      image: "https://i.ibb.co/XLzKtjm/Screenshot-12.png",
+      name: "rahim uddin",
+      message: "good night.",
+      time: "12:43",
+    },
   ];
+  
 
   return (
     <SafeAreaView className="h-full w-full">
@@ -36,13 +203,18 @@ const InternalChat = () => {
         <FilterSection filter={filter} setFilter={setFilter} />
       </View>
       <ScrollView className="mt-2">
-        {conversations.map((conversation, index) => (
+        {conversations.map((conversation) => (
           <ConversationItem
-            key={index}
+            key={conversation.id}
+            tab={spchat}
+            image={conversation.image}
             name={conversation.name}
             message={conversation.message}
             time={conversation.time}
-            onPress={() => router.push(`/inbox/${conversation}`)}
+            onPress={() => {
+              console.log(`Navigating to /spchat/${conversation.id}`);
+              router.push(`/(spchat)/${conversation.id}`);
+            }}
           />
         ))}
       </ScrollView>

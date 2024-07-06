@@ -1,26 +1,40 @@
-import React, { useState } from "react";
-import { ScrollView, StatusBar, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { ScrollView, StatusBar, View, ActivityIndicator, Text } from "react-native";
 import Header from "@components/home/Header";
 import SearchBar from "@components/home/SearchBar";
 import FilterSection from "@components/home/FilterSection";
-import ConversationItem from "@components/home/ConversationItem";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import ConversationItem from "@components/home/ConversationItem";
+import { useGetLeadsQuery } from "@redux/lead-center/leadCenterAPI";
 
 const Leads = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("all");
+  const [page, setPage] = useState(1);
+  const [leads, setLeads] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
 
-  const conversations = [
-    { name: "John Doe", message: "Hello!", time: "12:34" },
-    { name: "Jane Smith", message: "How are you?", time: "12:35", id: 1 },
-    { name: "Jane Smith", message: "How are you?", time: "12:35", id: 2 },
-    { name: "Jane Smith", message: "How are you?", time: "12:35", id: 3 },
-    { name: "Jane Smith", message: "How are you?", time: "12:35", id: 4 },
-    { name: "Jane Smith", message: "How are you?", time: "12:35", id: 5 },
-    { name: "Jane Smith", message: "How are you?", time: "12:35", id: 6 },
-    // Add more dummy data here
-  ];
+  const { data, error, isLoading, isFetching } = useGetLeadsQuery({ page, limit: 20 });
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setLeads((prevLeads) => [...prevLeads, ...data]);
+    } else if (data && data.length === 0) {
+      setHasMore(false); // No more data to fetch
+    }
+  }, [data]);
+
+  const handleScroll = ({ nativeEvent }) => {
+    const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
+    if (
+      layoutMeasurement.height + contentOffset.y >= contentSize.height - 20 &&
+      !isFetching &&
+      hasMore
+    ) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
 
   return (
     <SafeAreaView className="h-full w-full">
@@ -29,16 +43,31 @@ const Leads = () => {
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <FilterSection filter={filter} setFilter={setFilter} />
       </View>
-      <ScrollView className="mt-2">
-        {conversations.map((conversation, index) => (
+      <ScrollView
+        className="mt-2"
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+      >
+        {leads?.map((conversation,index) => (
           <ConversationItem
             key={index}
-            name={conversation.name}
-            message={conversation.message}
-            time={conversation.time}
-            onPress={() => router.push(`/(lead-inbox)/${conversation.id}`)}
+            name={conversation?.name}
+            creName={conversation?.creName}
+            status={conversation.status}
+            message={conversation?.lastMsg}
+            onPress={() => router.push(`/(lead-inbox)/${conversation._id}`)}
           />
         ))}
+        {isFetching && (
+          <View style={{ padding: 10 }}>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        )}
+        {!hasMore && !isFetching && (
+          <View style={{ padding: 10 }}>
+            <Text>No more leads to load</Text>
+          </View>
+        )}
       </ScrollView>
       <StatusBar backgroundColor={"#fff"} />
     </SafeAreaView>

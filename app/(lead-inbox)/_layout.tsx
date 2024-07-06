@@ -9,7 +9,8 @@ const LeadInboxLayout = () => {
         <Stack.Screen name="[id]" options={{ headerShown: false }} />
         <Stack.Screen name="lead-profile" options={{ headerShown: false }} />
       </Stack>
-      <StatusBar style="light" backgroundColor="#161622" />
+      <StatusBar backgroundColor="#f2f2f2" />
+
     </>
   );
 };
