@@ -7,10 +7,13 @@ const NotificationLayout = () => {
   return (
     <>
       <Stack>
-        <Stack.Screen name="notification" options={{ headerShown: false }} />
+        <Stack.Screen name="notification" options={{ headerShown: true }} />
       </Stack>
     </>
   );
 };
 
 export default NotificationLayout;
+
+
+

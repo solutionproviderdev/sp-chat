@@ -124,7 +124,7 @@ function RootLayout() {
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="(employee-inbox)"
+              name="(spchat)"
               options={{ headerShown: false }}
             />
             <Stack.Screen

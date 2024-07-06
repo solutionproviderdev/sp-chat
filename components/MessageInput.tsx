@@ -4,13 +4,14 @@ import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const MessageInput = () => {
+const MessageInput = ({ onSendMessage }) => {
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
-    // Handle sending message logic
-    console.log("Sending message:", message);
-    setMessage(""); // Clear the input after sending
+    if (message.trim()) {
+      onSendMessage(message);
+      setMessage(""); // Clear the input after sending
+    }
   };
 
   return (
@@ -35,8 +36,9 @@ const MessageInput = () => {
         value={message}
         onChangeText={setMessage}
       />
-      <Button mode="contained" className="ml-2" onPress={handleSend}>
-        Send
+      <Button onPress={handleSend}>
+      <Icon name="send" size={24} />
+
       </Button>
     </View>
   );

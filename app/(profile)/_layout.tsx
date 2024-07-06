@@ -8,9 +8,8 @@ const ProfileLayout = () => {
     <>
       <Stack>
         <Stack.Screen name="profile" options={{ headerShown: false }} />
-        <Stack.Screen name="settings" options={{ headerShown: false }} />
       </Stack>
-        <StatusBar style="light" backgroundColor="#161622" />
+      <StatusBar backgroundColor="#f5f5f5" />
     </>
   );
 };

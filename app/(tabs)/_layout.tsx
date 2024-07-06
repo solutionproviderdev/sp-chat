@@ -64,10 +64,25 @@ const HomeLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabsIcon
-                name="Chat"
+                name="SpChat"
                 color={color}
                 focused={focused}
                 icon="chat"
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="Meeting"
+          options={{
+            title: "Meeting",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabsIcon
+                name="Meeting"
+                color={color}
+                focused={focused}
+                icon="calendar-clock"
               />
             ),
           }}
