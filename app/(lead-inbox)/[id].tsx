@@ -12,12 +12,14 @@ const Inbox = () => {
   const messages = [
     { id: 1, text: "Hi", sender: "John Doe" },
     { id: 2, text: "What's up?", sender: "Jane Doe" },
-    // Add more dummy messages here
+    { id: 2, text: "What's up?", sender: "Jane Doe" },
+    { id: 2, text: "What's up?", sender: "Jane Doe" },
+    { id: 2, text: "What's up?", sender: "Jane Doe" },
   ];
 
   return (
     <SafeAreaView className="flex-1 bg-gray-100">
-      <InboxHeader name={"John Doe" + id} />
+      <InboxHeader name={"John Doe"} id={id} />
       <ScrollView className="p-4">
         {messages.map((message) => (
           <View key={message.id} className="flex-row justify-start mb-2">

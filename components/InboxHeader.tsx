@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from "expo-router";
 
-const InboxHeader = ({ name }: { name: string }) => {
+const InboxHeader = ({ name, id }: { name: string, id: string }) => {
   const navigation = useNavigation();
 
   return (
@@ -32,7 +32,7 @@ const InboxHeader = ({ name }: { name: string }) => {
             style={{ marginRight: 15 }}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("LeadsProfile")}>
+        <TouchableOpacity onPress={() => router.push('lead-profile')}>
           <Icon name="information" size={24} color="black" />
         </TouchableOpacity>
       </View>
