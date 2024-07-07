@@ -5,14 +5,18 @@
 // import MessageInput from "../../components/MessageInput";
 // import { SafeAreaView } from "react-native-safe-area-context";
 // import { StatusBar } from "expo-status-bar";
-// import { useGetLeadDetailsQuery } from "@redux/apiSlice";
+// import { useGetLeadDetailsQuery, useSendMessegeMutation } from "@redux/lead-center/leadCenterAPI";
 
 // const Inbox = () => {
 //   const { id } = useLocalSearchParams();
 //   console.log("leads er id ", id);
-//   const { data: lead, error, isLoading } = useGetLeadDetailsQuery(id);
-//   const { data:sendMessage, error, isLoading } = useSendMessegeMutation(id);
-//   console.log("lead result", lead);
+//   const {
+//     data: lead,
+//     error: leadError,
+//     isLoading: leadLoading,
+//   } = useGetLeadDetailsQuery(id);
+//   const [sendMessage, { isLoading: isSending, error: sendError }] =
+//     useSendMessegeMutation();
 //   const [messages, setMessages] = useState([]);
 
 //   useEffect(() => {
@@ -34,46 +38,34 @@
 //     };
 
 //     // Optimistically add the new message to the UI
+//     setMessages((prevMessages) => [...prevMessages, newMessageData]);
 
-//     // Send the message to the backend
 //     try {
-//       // const response = await fetch(
-//       //   `http://192.168.68.108:5000/fbmessage/${id}`,
-//       //   {
-//       //     method: "POST",
-//       //     headers: {
-//       //       "Content-Type": "application/json",
-//       //     },
-//       //     body: JSON.stringify({ message: newMessage }),
-//       //   }
-//       // );
+//       const result = await sendMessage({
+//         id,
+//         message: newMessage,
+//       }).unwrap();
 
-//       const response = sendMessage(id, newMessage)
+//       console.log("Message sent successfully:", result);
 
-//       const data = await response.json();
-//       if (response.ok) {
-//         setMessages((prevMessages) => [...prevMessages, newMessageData]);
-
-//         console.log("Message sent successfully:", data);
-//         // Update the message ID with the one returned from the server
-//         setMessages((prevMessages) =>
-//           prevMessages.map((msg) =>
-//             msg._id === newMessageData._id
-//               ? { ...msg, _id: data.data.messageId }
-//               : msg
-//           )
-//         );
-//       } else {
-//         console.error("Failed to send message:", data.error);
-//         // Optionally handle the error in the UI (e.g., remove the optimistic message)
-//       }
+//       // Update the message ID with the one returned from the server
+//       setMessages((prevMessages) =>
+//         prevMessages.map((msg) =>
+//           msg._id === newMessageData._id
+//             ? { ...msg, _id: result.data.messageId }
+//             : msg
+//         )
+//       );
 //     } catch (error) {
-//       console.error("Error sending message:", error);
-//       // Optionally handle the error in the UI (e.g., remove the optimistic message)
+//       console.error("Failed to send message:", error);
+//       // Remove the optimistic message if sending fails
+//       setMessages((prevMessages) =>
+//         prevMessages.filter((msg) => msg._id !== newMessageData._id)
+//       );
 //     }
 //   };
 
-//   if (isLoading) {
+//   if (leadLoading) {
 //     return (
 //       <SafeAreaView className="flex-1 bg-gray-100 justify-center items-center">
 //         <ActivityIndicator size="large" color="#0000ff" />
@@ -81,7 +73,7 @@
 //     );
 //   }
 
-//   if (error) {
+//   if (leadError) {
 //     return (
 //       <SafeAreaView className="flex-1 bg-gray-100 justify-center items-center">
 //         <Text>Error loading messages</Text>
@@ -92,8 +84,7 @@
 //   return (
 //     <SafeAreaView className="flex-1 bg-gray-100">
 //       <InboxHeader name={lead?.name || "Unknown"} />
-
-//       <ScrollView className="p-4">
+//       <ScrollView className="p-4  ">
 //         {messages.map((message) => (
 //           <View
 //             key={message._id}
@@ -102,7 +93,7 @@
 //             }`}
 //           >
 //             <Text
-//               className={`p-2 rounded-lg shadow ${
+//               className={`p-2 mb-2 rounded-lg shadow ${
 //                 message.sentByMe ? "bg-blue-100" : "bg-white"
 //               }`}
 //             >
@@ -112,11 +103,154 @@
 //         ))}
 //       </ScrollView>
 //       <MessageInput onSendMessage={handleSendMessage} />
+//       {sendError && (
+//         <View className="absolute bottom-0 left-0 right-0 p-4 bg-red-600">
+//           <Text className="text-white text-center">Failed to send message</Text>
+//         </View>
+//       )}
 //     </SafeAreaView>
 //   );
 // };
 
 // export default Inbox;
+
+
+
+// import React, { useState, useEffect } from "react";
+// import { ScrollView, View, Text, ActivityIndicator } from "react-native";
+// import { useLocalSearchParams } from "expo-router";
+// import InboxHeader from "../../components/InboxHeader";
+// import MessageInput from "../../components/MessageInput";
+// import { SafeAreaView } from "react-native-safe-area-context";
+// import { StatusBar } from "expo-status-bar";
+// import { useGetLeadDetailsQuery, useSendMessegeMutation } from "@redux/lead-center/leadCenterAPI";
+// import useSocket from '../../hooks/useSocket'; // Ensure this path is correct
+
+// const serverUrl = 'http://localhost:3000'; // Replace with your server URL
+
+// const Inbox = () => {
+//   const { id } = useLocalSearchParams();
+//   console.log("leads er id ", id);
+//   const {
+//     data: lead,
+//     error: leadError,
+//     isLoading: leadLoading,
+//   } = useGetLeadDetailsQuery(id);
+//   const [sendMessage, { isLoading: isSending, error: sendError }] =
+//     useSendMessegeMutation();
+//   const [messages, setMessages] = useState([]);
+//   const socket = useSocket(serverUrl);
+
+//   useEffect(() => {
+//     if (lead && lead.messages) {
+//       setMessages(lead.messages);
+//     }
+//   }, [lead]);
+
+//   useEffect(() => {
+//     if (socket) {
+//       socket.on('conversation', (newMessage) => {
+//         setMessages((prevMessages) => [...prevMessages, newMessage]);
+//       });
+//     }
+//     return () => {
+//       if (socket) {
+//         socket.off('conversation');
+//       }
+//     };
+//   }, [socket]);
+
+//   const handleSendMessage = async (newMessage) => {
+//     console.log("handleSendMessage:", newMessage);
+
+//     // Create a new message data object
+//     const newMessageData = {
+//       _id: Date.now().toString(), // Temporary ID until the server returns the real one
+//       content: newMessage,
+//       senderId: "You",
+//       sentByMe: true,
+//       date: new Date().toISOString(),
+//     };
+
+//     // Optimistically add the new message to the UI
+//     setMessages((prevMessages) => [...prevMessages, newMessageData]);
+
+//     try {
+//       const result = await sendMessage({
+//         id,
+//         message: newMessage,
+//       }).unwrap();
+
+//       console.log("Message sent successfully:", result);
+
+//       // Update the message ID with the one returned from the server
+//       setMessages((prevMessages) =>
+//         prevMessages.map((msg) =>
+//           msg._id === newMessageData._id
+//             ? { ...msg, _id: result.data.messageId }
+//             : msg
+//         )
+//       );
+//     } catch (error) {
+//       console.error("Failed to send message:", error);
+//       // Remove the optimistic message if sending fails
+//       setMessages((prevMessages) =>
+//         prevMessages.filter((msg) => msg._id !== newMessageData._id)
+//       );
+//     }
+//   };
+
+//   if (leadLoading) {
+//     return (
+//       <SafeAreaView className="flex-1 bg-gray-100 justify-center items-center">
+//         <ActivityIndicator size="large" color="#0000ff" />
+//       </SafeAreaView>
+//     );
+//   }
+
+//   if (leadError) {
+//     return (
+//       <SafeAreaView className="flex-1 bg-gray-100 justify-center items-center">
+//         <Text>Error loading messages</Text>
+//       </SafeAreaView>
+//     );
+//   }
+
+//   return (
+//     <SafeAreaView className="flex-1 bg-gray-100">
+//       <InboxHeader name={lead?.name || "Unknown"} />
+//       <ScrollView className="p-4">
+//         {messages.map((message) => (
+//           <View
+//             key={message._id}
+//             className={`flex-row mb-2 ${
+//               message.sentByMe ? "justify-end" : "justify-start"
+//             }`}
+//           >
+//             <Text
+//               className={`p-2 mb-2 rounded-lg shadow ${
+//                 message.sentByMe ? "bg-blue-100" : "bg-white"
+//               }`}
+//             >
+//               {message.content}
+//             </Text>
+//           </View>
+//         ))}
+//       </ScrollView>
+//       <MessageInput onSendMessage={handleSendMessage} />
+//       {sendError && (
+//         <View className="absolute bottom-0 left-0 right-0 p-4 bg-red-600">
+//           <Text className="text-white text-center">Failed to send message</Text>
+//         </View>
+//       )}
+//     </SafeAreaView>
+//   );
+// };
+
+// export default Inbox;
+
+
+
 
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, Text, ActivityIndicator } from "react-native";
@@ -124,23 +258,43 @@ import { useLocalSearchParams } from "expo-router";
 import InboxHeader from "../../components/InboxHeader";
 import MessageInput from "../../components/MessageInput";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StatusBar } from "expo-status-bar";
-import {
-  useGetLeadDetailsQuery,
-  useSendMessegeMutation,
-} from "@redux/apiSlice";
+import { useGetLeadDetailsQuery, useSendMessegeMutation } from "@redux/lead-center/leadCenterAPI";
+import io from 'socket.io-client';
+
+const serverUrl = 'http://localhost:3000'; // Replace with your server URL
 
 const Inbox = () => {
   const { id } = useLocalSearchParams();
-  console.log("leads er id ", id);
   const {
     data: lead,
     error: leadError,
     isLoading: leadLoading,
   } = useGetLeadDetailsQuery(id);
-  const [sendMessage, { isLoading: isSending, error: sendError }] =
-    useSendMessegeMutation();
+  const [sendMessage, { isLoading: isSending, error: sendError }] = useSendMessegeMutation();
   const [messages, setMessages] = useState([]);
+  const [socket, setSocket] = useState(null);
+console.log('socket',socket)
+  useEffect(() => {
+    const socketInstance = io(serverUrl);
+    socketInstance.on('connect', () => {
+      console.log('Connected to WebSocket server');
+    });
+
+    socketInstance.on('disconnect', () => {
+      console.log('Disconnected from WebSocket server');
+    });
+
+    socketInstance.on('conversation', (newMessage) => {
+      console.log("New message received:", newMessage);
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    });
+
+    setSocket(socketInstance);
+
+    return () => {
+      socketInstance.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     if (lead && lead.messages) {
@@ -151,16 +305,14 @@ const Inbox = () => {
   const handleSendMessage = async (newMessage) => {
     console.log("handleSendMessage:", newMessage);
 
-    // Create a new message data object
     const newMessageData = {
-      _id: Date.now().toString(), // Temporary ID until the server returns the real one
+      _id: Date.now().toString(),
       content: newMessage,
       senderId: "You",
       sentByMe: true,
       date: new Date().toISOString(),
     };
 
-    // Optimistically add the new message to the UI
     setMessages((prevMessages) => [...prevMessages, newMessageData]);
 
     try {
@@ -171,7 +323,6 @@ const Inbox = () => {
 
       console.log("Message sent successfully:", result);
 
-      // Update the message ID with the one returned from the server
       setMessages((prevMessages) =>
         prevMessages.map((msg) =>
           msg._id === newMessageData._id
@@ -181,7 +332,6 @@ const Inbox = () => {
       );
     } catch (error) {
       console.error("Failed to send message:", error);
-      // Remove the optimistic message if sending fails
       setMessages((prevMessages) =>
         prevMessages.filter((msg) => msg._id !== newMessageData._id)
       );
@@ -216,7 +366,7 @@ const Inbox = () => {
             }`}
           >
             <Text
-              className={`p-2 rounded-lg shadow ${
+              className={`p-2 mb-2 rounded-lg shadow ${
                 message.sentByMe ? "bg-blue-100" : "bg-white"
               }`}
             >
@@ -226,11 +376,6 @@ const Inbox = () => {
         ))}
       </ScrollView>
       <MessageInput onSendMessage={handleSendMessage} />
-      {isSending && (
-        <View className="absolute top-0 left-0 right-0 bottom-0 justify-center items-center bg-black bg-opacity-50">
-          <ActivityIndicator size="large" color="#fff" />
-        </View>
-      )}
       {sendError && (
         <View className="absolute bottom-0 left-0 right-0 p-4 bg-red-600">
           <Text className="text-white text-center">Failed to send message</Text>

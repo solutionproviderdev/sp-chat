@@ -16,7 +16,6 @@ const Leads = () => {
   const [hasMore, setHasMore] = useState(true);
 
   const { data, error, isLoading, isFetching } = useGetLeadsQuery({ page, limit: 20 });
-
   useEffect(() => {
     if (data && data.length > 0) {
       setLeads((prevLeads) => [...prevLeads, ...data]);
