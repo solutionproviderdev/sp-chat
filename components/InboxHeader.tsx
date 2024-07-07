@@ -7,7 +7,7 @@ import RNPickerSelect from "react-native-picker-select";
 import MeetingModal from "./MeetingModal"; // Import the MeetingModal component
 import NumberModal from "./NumberModal"; // Import the NumberModal component
 
-const InboxHeader = ({ name }: { name: string }) => {
+const InboxHeader = ({ name, id }: { name: string, id: string }) => {
   const navigation = useNavigation();
   const [selectedStatus, setSelectedStatus] = useState("unread"); // State for selected status
   const [isMeetingModalVisible, setMeetingModalVisible] = useState(false); // State for Meeting Modal visibility

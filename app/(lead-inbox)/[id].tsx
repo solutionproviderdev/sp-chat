@@ -258,10 +258,10 @@ import { useLocalSearchParams } from "expo-router";
 import InboxHeader from "../../components/InboxHeader";
 import MessageInput from "../../components/MessageInput";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useGetLeadDetailsQuery, useSendMessegeMutation } from "@redux/lead-center/leadCenterAPI";
-import io from 'socket.io-client';
-
-const serverUrl = 'http://localhost:3000'; // Replace with your server URL
+import {
+  useGetLeadDetailsQuery,
+  useSendMessegeMutation,
+} from "@redux/features/lead-center/leadCenterAPI";
 
 const Inbox = () => {
   const { id } = useLocalSearchParams();
@@ -300,8 +300,7 @@ console.log('socket',socket)
     if (lead && lead.messages) {
       setMessages(lead.messages);
     }
-  }, [lead]);
-
+  }, [lead?.messages]);
   const handleSendMessage = async (newMessage) => {
     console.log("handleSendMessage:", newMessage);
 

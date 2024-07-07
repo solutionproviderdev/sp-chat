@@ -5,6 +5,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 const FilterSection = ({
   filter,
   setFilter,
+  refetch
 }: {
   filter: string;
   setFilter: (filter: string) => void;
@@ -33,6 +34,9 @@ const FilterSection = ({
           </Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity className="px-4 py-2 bg-gray-200 rounded-sm" onPress={() => refetch()}>
+        <Icon name="filter" size={16} color="gray" />
+      </TouchableOpacity>
       <TouchableOpacity className="px-4 py-2 bg-gray-200 rounded-sm">
         <Icon name="filter" size={16} color="gray" />
       </TouchableOpacity>
