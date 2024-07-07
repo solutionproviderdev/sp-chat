@@ -4,7 +4,7 @@ let socket;
 
 export const connectSocket = () => {
 	const socketUrl =
-		process.env.REACT_APP_API_SOCKET || 'http://192.168.68.111:5000';
+		process.env.REACT_APP_API_SOCKET || 'http://192.168.68.108:3000';
 
 	socket = io(socketUrl, {
 		path: '/socket.io',
