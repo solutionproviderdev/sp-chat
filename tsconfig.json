@@ -9,5 +9,5 @@
       // "@redux/*": ["./redux/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "redux/counterSlice.jsx", "redux/rootReducer.jsx", "redux/store.jsx"]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "redux/counterSlice.jsx", "redux/rootReducer.ts", "redux/store.ts"]
 }

@@ -1,5 +1,5 @@
-import React from "react";
 import { Tabs } from "expo-router";
+import React = require("react");
 import { View, Text } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -10,7 +10,12 @@ interface TabsIconProps {
   focused: boolean;
 }
 
-const TabsIcon: React.FC<TabsIconProps> = ({ name, color, icon, focused }) => {
+const TabsIcon: React.FC<TabsIconProps> = ({
+  name,
+  color,
+  icon,
+  focused,
+}: TabsIconProps) => {
   return (
     <View className="items-center justify-center gap-2">
       <Icon name={icon} size={24} color={color} />
