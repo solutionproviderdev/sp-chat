@@ -82,7 +82,7 @@ const Header = ({ title, notificationCount=4 }: { title: string; notificationCou
   const isProfilePage = route.name === 'profile'; // Adjust based on your route name
 
   return (
-    <View className="flex-row justify-between items-center p-4 bg-white shadow">
+    <View className="flex-row justify-between items-center p-4 mt-5 bg-white shadow">
       <Text className="text-xl font-bold">{title}</Text>
       {!isProfilePage && (
         <View className="flex-row items-center">

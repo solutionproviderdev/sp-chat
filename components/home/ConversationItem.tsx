@@ -27,7 +27,6 @@ const ConversationItem = ({
   ? { uri: image }
   : { uri: "https://media.istockphoto.com/id/1888326378/photo/young-girl-and-adult-friends-splash-in-the-ocean-together.webp?s=2048x2048&w=is&k=20&c=iSFQRykkOoLN6hvh-q8Dw2DZj5dvdx9PyBLAyWLE3sw=" };
 
-
   return (
     <TouchableOpacity
       className="flex-row justify-between items-center p-4 bg-white border-b border-gray-200"
@@ -51,7 +50,7 @@ const ConversationItem = ({
           >
             <Text className="text-white bg-blue-300 py-1 px-1 rounded  mr-1">{status}</Text>
           </TouchableOpacity>
-          <Text className="py-1 px-1">{creName.name}</Text>
+          {/* <Text className="py-1 px-1">{creName}</Text> */}
         </View>
         )}
         <View className="flex-row justify-center items-center">

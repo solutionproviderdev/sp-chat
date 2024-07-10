@@ -2,24 +2,25 @@ import { apiSlice } from "@redux/api/apiSlice";
 
 const leadCenterAPI = apiSlice.injectEndpoints({
   endpoints: (builder: { query: (arg0: { query: (({ page }?: { page?: number; }) => string) | ((id: any) => string); }) => any; mutation: (arg0: { query: ({ id, message }: { id: any; message: any; }) => { url: string; method: string; body: { message: any; }; }; }) => any; }) => ({
-    getLeads: builder.query({
-      query: ({ page = 1 }) => `/fbmessage/conversations?page=${page}&limit=20`,
+    getAllLeadConversations: builder.query({
+      query: ({ page = 1,limit }) => `/lead/conversation?page=${page}&limit=${limit}`,
     }),
-    getLeadDetails: builder.query({
-      query: (id: any) => `/lead/${id}`,
+    getLeadConversationDetails: builder.query({
+      query: (id: any) => `/nativeLeads/${id}`,
     }),
-    sendMessege: builder.mutation({
+    sendMessage: builder.mutation({
       query: ({ id, message }) => ({
-        url: `/fbmessage/${id}`,
+        url: `/nativeLeads/${id}`,
         method: "POST",
-        body: { message },
+        body: { message },  
       }),
     }),
   }),
+  overrideExisting: true, // Allow overriding existing endpoints
 });
 
 export const {
-  useGetLeadsQuery,
-  useGetLeadDetailsQuery,
-  useSendMessegeMutation,
+  useGetAllLeadConversationsQuery,
+  useGetLeadConversationDetailsQuery,
+  useSendMessageMutation,
 } = leadCenterAPI;
