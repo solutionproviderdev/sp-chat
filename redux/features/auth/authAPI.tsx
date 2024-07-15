@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-import axios from 'axios';
 import { userLoggedIn } from './authSlice';
 import { apiSlice } from '@redux/api/apiSlice';
 
