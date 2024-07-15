@@ -1,3 +1,4 @@
+// // src/features/auth/authSlice.js
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { createSlice } from '@reduxjs/toolkit';
 
@@ -25,7 +26,6 @@
 
 // export const { userLoggedIn, userLoggedOut } = authSlice.actions;
 // export default authSlice.reducer;
-
 
 
 import AsyncStorage from '@react-native-async-storage/async-storage';

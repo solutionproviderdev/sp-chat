@@ -95,20 +95,19 @@ const Signin = () => {
 	const dispatch = useDispatch();
 
 	const handleLogin = async () => {
-		try {
-			const res = await login({ email, password }).unwrap();
-			console.log('response is here -->', res);
-			if (res.success) {
-				dispatch(userLoggedIn({ user: res.user, token: res.token }));
-				router.push('/leads');
-			} else {
-				Alert.alert('Login Failed', res.message);
-			}
-		} catch (error) {
-			console.log('err', error);
-			Alert.alert('Login Failed', 'Invalid email or password');
-		}
-	};
+    try {
+      const res = await login({ email, password }).unwrap();
+      if (res.success) {
+        dispatch(userLoggedIn({ user: res.user, token: res.token }));
+        router.replace('/leads');
+      } else {
+        Alert.alert('Login Failed', res.message);
+      }
+    } catch (error) {
+      console.log('err', error);
+      Alert.alert('Login Failed', 'Invalid email or password');
+    }
+  };
 
 	return (
 		<SafeAreaView className="flex-1 bg-gray-100 p-5">

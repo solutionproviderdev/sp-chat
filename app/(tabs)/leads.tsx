@@ -8,7 +8,7 @@ import {
 	Text,
 	StatusBar,
 } from 'react-native';
-import { useGetAllLeadConversationsQuery } from '@redux/features/lead-center/leadCenterAPI';
+import { useGetAllLeadConversationsQuery, useGetLeadConversationDetailsQuery } from '@redux/features/lead-center/leadCenterAPI';
 import { getSocket } from '@hooks/getSocket';
 import Header from '../../components/home/Header';
 import SearchBar from '../../components/home/SearchBar';
@@ -27,13 +27,11 @@ const Leads = () => {
 
 	console.log('RootState:', state);
 
-	const { data, error, isLoading, isFetching } =
+	const { data, error, isLoading, isFetching,refetch } =
 		useGetAllLeadConversationsQuery({
 			page,
 			limit: 20,
 		});
-
-	// console.log('name ta undefine check korar jconno',leads)
 
 	useEffect(() => {
 		if (data && data.leads) {
