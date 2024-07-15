@@ -18,11 +18,15 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import { getSocket } from '@hooks/getSocket';
+import { useSelector } from 'react-redux';
 
 const Inbox = () => {
 	const { id } = useLocalSearchParams();
 	const scrollViewRef = useRef(null);
 	const socketRef = useRef(null);
+	const state = useSelector(state => state);
+
+	console.log('rootstate:', state);
 
 	const {
 		data: lead,
@@ -52,7 +56,6 @@ const Inbox = () => {
 	useEffect(() => {
 		const fetchMessages = async () => {
 			try {
-
 				const result = await refetch();
 				if (result.data && result.data.messages) {
 					setMessages(result.data.messages);
@@ -251,9 +254,6 @@ const styles = StyleSheet.create({
 
 export default Inbox;
 
-
-
-
 // ## hare all things is correct just get realtime is not
 
 // import React, { useState, useEffect, useRef, useCallback } from 'react';
@@ -437,11 +437,6 @@ export default Inbox;
 // });
 
 // export default Inbox;
-
-
-
-
-
 
 //## i can get as final code ok just incoming message override each other and once we go back and return in to inbox its show as messge need to show in a serial
 
@@ -689,4 +684,3 @@ export default Inbox;
 // });
 
 // export default Inbox;
-

@@ -1,7 +1,6 @@
-import { View, Text } from "react-native";
+import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 
 const LeadInboxLayout = () => {
   return (
@@ -10,8 +9,7 @@ const LeadInboxLayout = () => {
         <Stack.Screen name="[id]" options={{ headerShown: false }} />
         <Stack.Screen name="lead-profile" options={{ headerShown: false }} />
       </Stack>
-      <StatusBar backgroundColor="#f2f2f2" />
-
+      <StatusBar barStyle="dark-content" />
     </>
   );
 };
