@@ -104,7 +104,7 @@ const Signin = () => {
       if (res.success) {
         dispatch(userLoggedIn({ user: res.user, token: res.token }));
         router.push('/leads');
-      } else {
+      } else {   
         Alert.alert('Login Failed', res.message);
       }
     } catch (error) {

@@ -37,7 +37,7 @@ const Meeting = () => {
       address,
       selectedTeam,
       selectedSchedule,
-      date,
+      date, 
     };
 
     // Log the meeting data to the console
