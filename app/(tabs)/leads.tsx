@@ -99,6 +99,7 @@ const Leads = () => {
 				{leads?.map((conversation, index) => (
 					<ConversationItem
 						key={index}
+            time={conversation?.lastMessageTime}
 						name={conversation?.name}
 						creName={conversation?.creName}
 						status={conversation.status}
