@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import moment from 'moment';
+
 const ConversationItem = ({
 	name,
 	image,
@@ -21,6 +22,7 @@ const ConversationItem = ({
 	onPress: () => void;
 	onUnreadPress: () => void;
 }) => {
+
 	const renderImageSource =
 		tab === 'spchat'
 			? { uri: image }
