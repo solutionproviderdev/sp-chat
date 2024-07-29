@@ -88,7 +88,6 @@ const InboxHeader = ({ name, id }: { name: string; id: string }) => {
 				onClose={() => setNumberModalVisible(false)}
 				onSave={handleSaveNumber}
 			/>
-			<StatusBar barStyle="default" />
 		</View>
 	);
 };

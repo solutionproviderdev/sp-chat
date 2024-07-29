@@ -64,7 +64,6 @@
 //           Login
 //         </Button>
 //       </View>
-//       <StatusBar style="dark" />
 //     </SafeAreaView>
 //   );
 // };
@@ -152,7 +151,6 @@ const Signin = () => {
 					Login
 				</Button>
 			</View>
-			<StatusBar style="dark" />
 		</SafeAreaView>
 	);
 };

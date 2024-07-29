@@ -9,7 +9,6 @@ const ProfileLayout = () => {
       <Stack>
         <Stack.Screen name="profile" options={{ headerShown: false }} />
       </Stack>
-      <StatusBar backgroundColor="#f5f5f5" />
     </>
   );
 };

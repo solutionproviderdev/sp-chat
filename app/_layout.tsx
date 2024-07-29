@@ -13,6 +13,7 @@ import { store } from '@redux/store';
 import { Provider as ReduxProvider } from 'react-redux';
 import { useColorScheme } from '@hooks/useColorScheme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { StatusBar } from 'expo-status-bar';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -127,6 +128,7 @@ function RootLayout() {
 		<GestureHandlerRootView className="h-full">
 			<ReduxProvider store={store}>
 				<PaperProvider theme={theme}>
+					<StatusBar style="light" backgroundColor="black" />
 					<Stack>
 						<Stack.Screen name="index" options={{ headerShown: false }} />
 						<Stack.Screen name="(auth)" options={{ headerShown: false }} />

@@ -11,6 +11,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { router } from "expo-router";
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from "@redux/features/auth/authAPI";
+import { StatusBar } from 'expo-status-bar';
 
 const Profile = () => {
   const user = useSelector((state) => state.auth.user);

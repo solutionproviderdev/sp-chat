@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import moment from 'moment';
+import noProfile from '../../assets/images/No Profile Search.png';
 
 const ConversationItem = ({
 	name,
@@ -23,25 +24,18 @@ const ConversationItem = ({
 	onUnreadPress: () => void;
 }) => {
 
-	const renderImageSource =
-		tab === 'spchat'
-			? { uri: image }
-			: {
-					uri: 'https://media.istockphoto.com/id/1888326378/photo/young-girl-and-adult-friends-splash-in-the-ocean-together.webp?s=2048x2048&w=is&k=20&c=iSFQRykkOoLN6hvh-q8Dw2DZj5dvdx9PyBLAyWLE3sw=',
-			  };
-
 	return (
 		<TouchableOpacity
 			className="flex-row justify-between items-center p-4 bg-white border-b border-gray-200"
 			onPress={onPress}
 		>
 			<Image
-				source={renderImageSource}
+				source={image ? image : noProfile}
 				className="w-12 h-12 rounded-full mr-4"
 			/>
 
 			<View className="flex-1">
-				<Text className="text-lg font-bold">{name}</Text>
+				<Text className="font-bold">{name}</Text>
 				<Text className="text-gray-600 " numberOfLines={1} ellipsizeMode="tail">
 					{message}
 				</Text>
@@ -51,7 +45,7 @@ const ConversationItem = ({
 				{tab !== 'spchat' && (
 					<View className="flex-row">
 						<TouchableOpacity onPress={onUnreadPress}>
-							<Text className="text-white bg-blue-300 py-1 px-1 rounded  mr-1">
+							<Text className="text-xs text-white bg-blue-300 py-1 px-1 rounded  mr-1">
 								{status}
 							</Text>
 						</TouchableOpacity>

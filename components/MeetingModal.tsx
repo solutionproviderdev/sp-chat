@@ -52,7 +52,6 @@ const MeetingModal = ({ isVisible, onClose }) => {
       onRequestClose={onClose}
     >
       <SafeAreaView className="flex-1 bg-gray-100">
-        <StatusBar style="white" backgroundColor="#f2f2f2" />
 
         <ScrollView className="mt-2 p-4">
           <View className="p-5 rounded-3xl bg-white shadow-md">

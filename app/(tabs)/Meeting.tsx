@@ -46,7 +46,6 @@ const Meeting = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-gray-100">
-      <StatusBar style="white" backgroundColor="#f2f2f2" />
 
       <MeetingHeader name={"John Doe"} />
 

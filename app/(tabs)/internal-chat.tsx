@@ -1,114 +1,5 @@
-// import React, { useState } from "react";
-// import { ScrollView, StatusBar, View } from "react-native";
-// import Header from "@components/home/Header";
-// import SearchBar from "@components/home/SearchBar";
-// import FilterSection from "@components/home/FilterSection";
-// import ConversationItem from "@components/home/ConversationItem";
-// import { SafeAreaView } from "react-native-safe-area-context";
-// import { useRouter } from "expo-router";
-
-// const InternalChat = () => {
-//   const [searchQuery, setSearchQuery] = useState("");
-//   const [filter, setFilter] = useState("all");
-//   const router = useRouter();
-//   const spchat = "spchat";
-//   const conversations = [
-//     {
-//       id: 1,
-//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
-//       name: "salman fursi",
-//       message: "spchat bolsi!",
-//       time: "12:34",
-//     },
-//     {
-//       id: 2,
-//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
-//       name: "najmul bhai",
-//       message: "spchat bolsi!",
-//       time: "12:34",
-//     },
-//     {
-//       id: 3,
-//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
-//       name: "ritu",
-//       message: "spchat bolsi!",
-//       time: "12:34",
-//     },
-//     {
-//       id: 4,
-//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
-//       name: "wony",
-//       message: "spchat bolsi!",
-//       time: "12:34",
-//     },
-//     {
-//       id: 5,
-//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
-//       name: "ashik bhai ",
-//       message: "spchat bolsi!",
-//       time: "12:34",
-//     },
-//     {
-//       id: 6,
-//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
-//       name: "emon",
-//       message: "spchat bolsi!",
-//       time: "12:34",
-//     },
-//     {
-//       id: 7,
-//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
-//       name: "khalid mitul",
-//       message: "spchat bolsi!",
-//       time: "12:34",
-//     },
-//     {
-//       id: 8,
-//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
-//       name: "sabbir",
-//       message: "spchat bolsi!",
-//       time: "12:34",
-//     },
-//     {
-//       id: 9,
-//       image: "https://i.ibb.co/Pmx9Q8Y/Screenshot-3.png",
-//       name: "tanvir",
-//       message: "spchat bolsi!",
-//       time: "12:34",
-//     },
-//   ];
-
-//   return (
-//     <SafeAreaView className="h-full w-full">
-//       <Header title="SP Chat" className="mt-10" />
-//       <View className="w-full px-4">
-//         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-//         <FilterSection filter={filter} setFilter={setFilter} />
-//       </View>
-//       <ScrollView className="mt-2">
-//         {conversations.map((conversation) => (
-//           <ConversationItem
-//           id={conversation.id}
-//             key={conversation.id}
-//             tab={spchat}
-//             image={conversation.image}
-//             name={conversation.name}
-//             message={conversation.message}
-//             time={conversation.time}
-//             onPress={() => router.push(`/(spchat)/${conversation.id}`)} // Ensure full path is used
-//           />
-//         ))}
-//       </ScrollView>
-//       <StatusBar backgroundColor={"#fff"} />
-//     </SafeAreaView>
-//   );
-// };
-
-// export default InternalChat;
-
-
 import React, { useState } from "react";
-import { ScrollView, StatusBar, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import Header from "@components/home/Header";
 import SearchBar from "@components/home/SearchBar";
 import FilterSection from "@components/home/FilterSection";
@@ -197,7 +88,7 @@ const InternalChat = () => {
 
   return (
     <SafeAreaView className="h-full w-full">
-      <Header title="SP Chat" className="mt-10" />
+      <Header title="SP Chat" />
       <View className="w-full px-4">
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <FilterSection filter={filter} setFilter={setFilter} />
@@ -218,7 +109,6 @@ const InternalChat = () => {
           />
         ))}
       </ScrollView>
-      <StatusBar backgroundColor={"#fff"} />
     </SafeAreaView>
   );
 };

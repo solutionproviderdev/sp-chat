@@ -18,16 +18,13 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import { getSocket } from '@hooks/getSocket';
-import { useSelector } from 'react-redux';
-import { getInitializedSocket } from '@hooks/socketManager';
+import { StatusBar } from 'expo-status-bar';
 
 const Inbox = () => {
 	const { id } = useLocalSearchParams();
 	const scrollViewRef = useRef(null);
 	const socketRef = useRef(null);
-	const state = useSelector(state => state);
-
-	console.log('rootstate:', state);
+	
 
 	const {
 		data: lead,
