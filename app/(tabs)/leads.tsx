@@ -31,8 +31,6 @@ const Leads = () => {
 			limit: 20,
 		});
 
-		console.log('image of no 4',leads[13]?.sourcePageProfilePicture)
-
 	useEffect(() => {
 		if (data && data.leads) {
 			if (page === 1) {
@@ -90,7 +88,7 @@ const Leads = () => {
 			setPage(prevPage => prevPage + 1);
 		}
 	};
-	
+
 	const onRefresh = useCallback(() => {
 		setRefreshing(true);
 		setPage(1);
@@ -99,7 +97,8 @@ const Leads = () => {
 			connectSocket();
 		});
 	}, [refetch, connectSocket]);
-	
+
+	// console.log('image is hare ',leads[1].sourcePageProfilePicture,'error hare',error);
 	return (
 		<SafeAreaView className="h-full w-full mt-6">
 			<Header title="Leads" className="" />

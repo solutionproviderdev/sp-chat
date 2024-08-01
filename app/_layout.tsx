@@ -126,16 +126,16 @@ function RootLayout() {
 
 	return (
 		<GestureHandlerRootView className="h-full">
+			<StatusBar style="light" backgroundColor="black" />
 			<ReduxProvider store={store}>
 				<PaperProvider theme={theme}>
-					<StatusBar style="light" backgroundColor="black" />
 					<Stack>
 						<Stack.Screen name="index" options={{ headerShown: false }} />
 						<Stack.Screen name="(auth)" options={{ headerShown: false }} />
 						<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 						<Stack.Screen name="(profile)" options={{ headerShown: false }} />
 						<Stack.Screen
-							name="(notification)"
+							name="(notification)"   
 							options={{ headerShown: false }}
 						/>
 						<Stack.Screen name="(spchat)" options={{ headerShown: false }} />

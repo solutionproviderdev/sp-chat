@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import moment from 'moment';
-import noProfile from '../../assets/images/No Profile Search.png';
+import noProfile from '../../assets/images/No_Profile_Search.png';
 
 const ConversationItem = ({
 	name,
@@ -23,6 +23,25 @@ const ConversationItem = ({
 	onPress: () => void;
 	onUnreadPress: () => void;
 }) => {
+	const [imageSource, setImageSource] = useState(noProfile);
+	useEffect(() => {
+		if (image) {
+			// Check if the image URL is valid
+			fetch(image)
+				.then(response => {
+					if (response.ok) {
+						setImageSource({ uri: image });
+					} else {
+						setImageSource(noProfile);
+					}
+				})
+				.catch(() => {
+					setImageSource(noProfile);
+				});
+		} else {
+			setImageSource(noProfile);
+		}
+	}, [image, noProfile]);
 
 	return (
 		<TouchableOpacity
@@ -30,10 +49,9 @@ const ConversationItem = ({
 			onPress={onPress}
 		>
 			<Image
-				source={image ? image : noProfile}
-				className="w-12 h-12 rounded-full mr-4"
+				source={imageSource}
+				style={{ width: 48, height: 48, borderRadius: 24 }}
 			/>
-
 			<View className="flex-1">
 				<Text className="font-bold">{name}</Text>
 				<Text className="text-gray-600 " numberOfLines={1} ellipsizeMode="tail">

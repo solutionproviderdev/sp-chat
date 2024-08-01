@@ -18,13 +18,11 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import { getSocket } from '@hooks/getSocket';
-import { StatusBar } from 'expo-status-bar';
 
 const Inbox = () => {
 	const { id } = useLocalSearchParams();
 	const scrollViewRef = useRef(null);
 	const socketRef = useRef(null);
-	
 
 	const {
 		data: lead,
@@ -168,10 +166,11 @@ const Inbox = () => {
 				</View>
 			)}
 			{!socketConnected && (
-				<View style={styles.socketStatus}>
-					<Text style={styles.socketStatusText}>
+				<View style={''}>
+				{/* <View style={styles.socketStatus}> */}
+					{/* <Text style={styles.socketStatusText}>
 						Connecting to chat server...
-					</Text>
+					</Text> */}
 				</View>
 			)}
 

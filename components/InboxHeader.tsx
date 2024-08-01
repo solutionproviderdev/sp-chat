@@ -6,9 +6,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import RNPickerSelect from 'react-native-picker-select';
 import MeetingModal from './MeetingModal'; // Import the MeetingModal component
 import NumberModal from './NumberModal'; // Import the NumberModal component
-import { StatusBar } from 'expo-status-bar';
 
 const InboxHeader = ({ name, id }: { name: string; id: string }) => {
+	const headName = name.split(' '); 
 	const navigation = useNavigation();
 	const [selectedStatus, setSelectedStatus] = useState('unread'); // State for selected status
 	const [isMeetingModalVisible, setMeetingModalVisible] = useState(false); // State for Meeting Modal visibility
@@ -33,11 +33,11 @@ const InboxHeader = ({ name, id }: { name: string; id: string }) => {
 	const handleSaveNumber = number => {
 		setCollectedNumber(number);
 		console.log('Collected Number:', number);
-	};
+	};  
 
 	return (
 		<View className="flex-row justify-between items-center py-1 px-2 bg-white shadow">
-			<Text className="text-xl font-bold">{name}</Text>
+			<Text className="font-bold">{headName[0]+' '+headName[1]}</Text>
 
 			<View className="flex-row gap-2 items-center">
 				<View className="rounded-md" style={{ width: 150 }}>
