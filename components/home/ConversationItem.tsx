@@ -29,6 +29,7 @@ const ConversationItem = ({
 			// Check if the image URL is valid
 			fetch(image)
 				.then(response => {
+					// console.log('image response',response)
 					if (response.ok) {
 						setImageSource({ uri: image });
 					} else {
@@ -52,7 +53,7 @@ const ConversationItem = ({
 				source={imageSource}
 				style={{ width: 48, height: 48, borderRadius: 24 }}
 			/>
-			<View className="flex-1">
+			<View className="flex-1 px-1">
 				<Text className="font-bold">{name}</Text>
 				<Text className="text-gray-600 " numberOfLines={1} ellipsizeMode="tail">
 					{message}

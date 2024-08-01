@@ -98,7 +98,6 @@ const Leads = () => {
 		});
 	}, [refetch, connectSocket]);
 
-	// console.log('image is hare ',leads[1].sourcePageProfilePicture,'error hare',error);
 	return (
 		<SafeAreaView className="h-full w-full mt-6">
 			<Header title="Leads" className="" />
