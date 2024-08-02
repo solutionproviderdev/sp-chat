@@ -29,8 +29,7 @@ let socket;
 
 export const getSocket = () => {
 	if (!socket) {
-		// socket = io('http://192.168.68.108:3000'); // Replace with your server URL
-		socket = io('https://crm.solutionprovider.com.bd/api'); // domain url
+		socket = io('https://crm.solutionprovider.com.bd/api/'); // Replace with your server URL
 	}
 	return socket;
 };
